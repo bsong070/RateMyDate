@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import "./index.css";
+import React, { StrictMode } from "react";
+import Home from "./Home";
+import NewEntry from "./NewEntry";
+import Navbar from "./Navbar";
+import UploadPicture from "./UploadPicture";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Navbar />
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/newreview" element={<NewEntry />} />
+            <Route path="/uploadpicture" element={<UploadPicture />} />
+          </Routes>
+        </div>
+      </div>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
