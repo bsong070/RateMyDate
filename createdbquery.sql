@@ -8,10 +8,8 @@ CREATE TABLE Ratings (
     FirstName varchar(20) NOT NULL,
     City varchar(20) NOT NULL,
     State varchar(20) NOT NULL,
-	Ethnicity varchar(20),
-	Picture1 varbinary(max),
-	Picture2 varbinary(max),
-	Picture3 varbinary(max),
+	Ethnicity varchar(40),
+	Picture varchar(max),
 	OverallRating int NOT NULL,
 	Personality int,
 	Humor int,
@@ -19,5 +17,8 @@ CREATE TABLE Ratings (
 	Social int,
 	Listening int,
 	Respect int,
-	Comments varchar(500),
+	Comments varchar(MAX),
+	DateSubmitted varchar(255),
+	Gender varchar(20),
+	Age int
 	);

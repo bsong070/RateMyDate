@@ -26,6 +26,8 @@ const addReview = async (
   firstName,
   city,
   state,
+  gender,
+  age,
   overallRating,
   ethnicity,
   personality,
@@ -34,7 +36,7 @@ const addReview = async (
   social,
   listening,
   respect,
-  comments
+  comments,
 ) => {
   try {
     let pool = await sql.connect(config);
@@ -45,6 +47,8 @@ const addReview = async (
                     FirstName,
                     City,
                     State,
+                    Gender,
+                    Age
                     OverallRating,
                     Ethnicity,
                     Personality,
@@ -53,13 +57,16 @@ const addReview = async (
                     Social,
                     Listening,
                     Respect,
-                    Comments
+                    Comments,
+                    DateSubmitted,
                     )
                 VALUES (
                     '${lastName}',
                     '${firstName}',
                     '${city}',
                     '${state}',
+                    '${gender}',
+                    '${age}'
                     '${overallRating}',     
                     '${ethnicity}',
                     '${personality}',
@@ -68,8 +75,8 @@ const addReview = async (
                     '${social}',
                     '${listening}',
                     '${respect}',
-                    '${comments}'
-
+                    '${comments}',
+                    (SELECT CURRENT_TIMESTAMP),
                 )
             `);
   } catch (error) {

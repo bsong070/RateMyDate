@@ -57,7 +57,6 @@ let states = [
 ];
 
 let cities = [
-  [
     "Abbeville",
     "Abbotsford",
     "Aberdeen",
@@ -6797,10 +6796,26 @@ let cities = [
     "Zionville",
     "Zolfo Springs",
     "Zuni",
-  ],
 ];
+
+let gender = [
+  "Female",
+  "Male",
+  "Other"
+]
+
+let ethnicity = [
+  "American Indian or Alaska Native",
+  "Asian",
+  "Black or African American",
+  "Hispanic or Latino",
+  "Native Hawaiian or Other Pacific Islander",
+  "White or Caucasian"
+]
 
 module.exports = {
   states,
   cities,
+  gender,
+  ethnicity
 };

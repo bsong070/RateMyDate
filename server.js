@@ -50,6 +50,8 @@ app.post("/insert", async (req, res) => {
     req.body.firstName,
     req.body.city,
     req.body.state,
+    req.body.gender,
+    req.body.age,
     req.body.overallRating,
     req.body.ethnicity,
     req.body.personality,
@@ -59,7 +61,7 @@ app.post("/insert", async (req, res) => {
     req.body.listening,
     req.body.respect,
     req.body.comments,
-    req.body.picture
+    req.body.picture,
   );
   const result = await dbOperations.getDateInfo(
     req.body.lastName,

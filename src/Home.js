@@ -1,6 +1,5 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import Rating from '@material-ui/lab/Rating';
 
 const Home = () => {
   const [onType, setOnType] = useState({
@@ -50,11 +49,29 @@ const Home = () => {
       Social: newData[0].Social,
       Listening: newData[0].Listening,
       Respect: newData[0].Respect,
-      Picture: newData[0].Picture
+      Picture: newData[0].Picture,
+      Age: newData[0].Age,
+      Gender: newData[0].Gender
     });
     setPicStatus(true);
     console.log(dateInfo);
   };
+
+//add age
+
+  let displaySearch = ({name}) => {
+    return (
+      <div>
+        <p>Name: {name.FirstName} {name.LastName}</p>
+        <p>Age: {name.Age}</p>
+        <p>Gender: {name.Gender}</p>
+        <p>Location: {name.City} {name.State}</p>
+        <p>Ethnicity: {name.Ethnicity}</p>
+        <p>Rating: {name.Rating}</p>
+        <p>Comments: {name.Comments}</p>
+      </div>
+    )
+  }
 
   return (
     <div className="App">

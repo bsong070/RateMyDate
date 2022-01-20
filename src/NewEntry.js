@@ -1,18 +1,10 @@
 import "./App.css";
 import React, { useRef, useState } from "react";
-import Rating from '@material-ui/lab/Rating';
+import {states, cities, ethnicity, gender} from './DropDownItem';
 
 // add ethincity
 
 const NewEntry = () => {
-  // const [value, setValue] = useState({
-  //   OverallRating: null
-  // });
-  // // Create ref 
-  // const valueRef = useRef();
-  // // Initialize ref
-  // valueRef.current = value;
-
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
 
@@ -30,7 +22,10 @@ const NewEntry = () => {
     Listening: "",
     Respect: "",
     Comments: "",
+    Gender: "",
+    Age: ""
   });
+
   const [dateInfo, setDateInfo] = useState([]);
 
 
@@ -66,6 +61,9 @@ const NewEntry = () => {
         listening: onType.Listening,
         respect: onType.Respect,
         comments: onType.Comments,
+        gender: onType.Gender,
+        age: onType.Age
+
       }),
     })
       .then((res) => res.json())
@@ -85,9 +83,47 @@ const NewEntry = () => {
       Listening: newData[0].Listening,
       Respect: newData[0].Respect,
       Comments: newData[0].Comments,
+      Gender: newData[0].Gender,
+      Age: newData[0].Age
     });
     console.log(dateInfo);
   };
+
+  let DropDown = (name, dropDownBank) => {
+    return (
+      <div>
+        <select name = {name} id = "list" onChange = {setInput}>
+        {dropDownBank.map((item, index) => (
+          <option value = {item}>{item}</option>
+        ))}
+        </select>
+      </div>
+    )
+  }
+
+  let StarRating = (name) => {
+    return (
+      <div className="star-rating">
+      {[...Array(5)].map((star, index) => {
+        index += 1;
+        return (
+          <button
+            type="button"
+            name = {name}
+            key={index}
+            className={index <= (hover || rating) ? "on" : "off"}
+            onClick={() => setOnType(index)}
+            onMouseEnter={() => setHover(index)}
+            onMouseLeave={() => setHover(rating)}
+          >
+            <span className="star">&#9733;</span>
+          </button>
+        );
+      })}
+    </div>
+    );
+  };
+
 
   return (
     <div className="create">
@@ -102,18 +138,18 @@ const NewEntry = () => {
         placeholder="First Name"
         onChange={setInput}
       ></input>
-      <input name="City" placeholder="City" onChange={setInput}></input>
-      <input name="State" placeholder="State" onChange={setInput}></input>
-      <input
-        name="Ethnicity"
-        placeholder="Ethnicity"
-        onChange={setInput}
-      ></input>
+      {DropDown("State", states)}
+      {DropDown("City", cities)}
+      {DropDown("Ethnicity", ethnicity)}
+      {DropDown("Gender", gender)}
       <input
         name="OverallRating"
         placeholder="Rating"
         onChange={setInput}
       ></input>
+      {StarRating("OverallRating")}
+      <input name="Age" placeholder="Age" onChange={setInput}></input>
+
       <input
         name="Personality"
         placeholder="Personality"
@@ -148,19 +184,6 @@ const NewEntry = () => {
           <input type="submit" className="btn btn-primary"></input>
         </form>
       </div>
-
-
-    {/* <div>
-      <Rating
-        name="simple-controlled"
-        value={value}
-        onChange={(event, newValue) => {
-          setValue({OverallRating: newValue});
-          // Get the latest state
-          console.log(valueRef.current);
-        }}
-      />
-    </div> */}
 
 <div className="star-rating">
       {[...Array(5)].map((star, index) => {
