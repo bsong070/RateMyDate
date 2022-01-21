@@ -61,7 +61,7 @@ app.post("/insert", async (req, res) => {
     req.body.listening,
     req.body.respect,
     req.body.comments,
-    req.body.picture,
+    // req.body.picture,
   );
   const result = await dbOperations.getDateInfo(
     req.body.lastName,
