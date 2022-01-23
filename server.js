@@ -26,8 +26,10 @@ app.post("/api", async (req, res) => {
 
 app.post("/uploadpicture", async (req, res) => {
 
+  if (req.files.Picture == null)
+    res.redirect('/');
   let uniqueTime = Date.now();
-  let picture = req.files.picture;
+  let picture = req.files.Picture;
   let uploadPath = __dirname + '/src/upload/' + uniqueTime + picture.name;
   let shortUploadPath = './upload/' + uniqueTime + picture.name;
 

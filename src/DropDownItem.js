@@ -1,4 +1,5 @@
 let states = [
+  "Please Select a State",
   "Alaska",
   "Alabama",
   "Arkansas",
@@ -57,6 +58,7 @@ let states = [
 ];
 
 let cities = [
+  "Please Select a City",
     "Abbeville",
     "Abbotsford",
     "Aberdeen",
@@ -6798,24 +6800,36 @@ let cities = [
     "Zuni",
 ];
 
+
 let gender = [
+  "Please Select a Gender",
   "Female",
   "Male",
   "Other"
 ]
 
 let ethnicity = [
+  "Please Select an Ethnicity",
   "American Indian or Alaska Native",
   "Asian",
   "Black or African American",
   "Hispanic or Latino",
   "Native Hawaiian or Other Pacific Islander",
   "White or Caucasian"
-]
+];
+
+let age = [];
+age[0] = "Please Select an Age";
+
+for (let i = 1; i < 101; i++)
+  age[i] = i;
+
+
 
 module.exports = {
   states,
   cities,
   gender,
-  ethnicity
+  ethnicity,
+  age
 };

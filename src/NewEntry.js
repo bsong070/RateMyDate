@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useRef, useState } from "react";
-import {states, cities, ethnicity, gender} from './DropDownItem';
+import {states, cities, ethnicity, gender, age} from './DropDownItem';
 
 // add ethincity
 
@@ -64,7 +64,7 @@ const NewEntry = () => {
       }),
     })
       .then((res) => res.json())
-      .then(() => (window.location.href = "/"));
+      // .then(() => (window.location.href = "/"));
     //   .then(() => (window.location.href = "/uploadpicture"));
     // console.log(newData);
     // setDateInfo({
@@ -87,10 +87,10 @@ const NewEntry = () => {
     // console.log(dateInfo);
   };
 
-  let DropDown = (name, dropDownBank) => {
+  let DropDown = (name, dropDownBank, defaultValue) => {
     return (
       <div>
-        <select name = {name} id = "list" onChange = {setInput}>
+        <select name = {name} id = "list" onChange = {setInput} defaultValue={defaultValue}>
         {dropDownBank.map((item, index) => (
           <option value = {item}>{item}</option>
         ))}
@@ -133,12 +133,17 @@ const NewEntry = () => {
         placeholder="First Name"
         onChange={setInput}
       ></input>
-      {DropDown("State", states)}
-      {DropDown("City", cities)}
-      {DropDown("Ethnicity", ethnicity)}
-      {DropDown("Gender", gender)}
+      <p>State</p>
+      {DropDown("State", states, states[0])}
+      <p>City</p>
+      {DropDown("City", cities, cities[0])}
+      <p>Ethnicity</p>
+      {DropDown("Ethnicity", ethnicity, ethnicity[0])}
+      <p>Gender</p>
+      {DropDown("Gender", gender, gender[0])}
+      <p>Age</p>
+      {DropDown("Age", age, age[0])}
 
-      <input name="Age" placeholder="Age" onChange={setInput}></input>
 
       <p>Rating: </p>{StarRating("OverallRating")}
       <p>Personality: </p>{StarRating("Personality")}
@@ -149,25 +154,21 @@ const NewEntry = () => {
       <p>Respect: </p>{StarRating("Respect")}
 
       <input name="Comments" placeholder="Comments" onChange={setInput}></input>
+
+      <form action="/uploadpicture" method="POST" encType="multipart/form-data">
+        <h3>Upload Picture Optional</h3>
+        <input type="file" name="Picture" accept="image/*"/>
       <button
+      type = "submit"
+      className = "btnSubmit"
         onClick={() => {
           addNewReview();
         }}
       >
         Submit Review
       </button>
+      </form>
 
-      <div>
-        <form
-          action="/uploadpicture"
-          method="POST"
-          encType="multipart/form-data"
-        >
-          <h3> Upload Profile Picture</h3>
-          <input type="file" name="picture" accept="image/*" />
-          <input type="submit" className="btn btn-primary"></input>
-        </form>
-      </div>
 
     </div>
   );
