@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {states, cities, ethnicity, gender, age} from './DropDownItem';
 
 const Home = () => {
@@ -10,34 +10,48 @@ const Home = () => {
     State: "",
   });
   
-  const [dateInfo, setDateInfo] = useState([
-    {
-      ID: "",
-      LastName: "",
-      FirstName: "",
-      City: "",
-      State: "",
-      OverallRating: "",
-      Age: "",
-      Gender: ""
-    }
-  ])
+  // const [dateInfo, setDateInfo] = useState([
+  //   {
+  //     ID: "",
+  //     LastName: "",
+  //     FirstName: "",
+  //     City: "",
+  //     State: "",
+  //     OverallRating: "",
+  //     Age: "",
+  //     Gender: ""
+  //   }
+  // ])
+
+  let dateInfo;
 
   const [viewReview, setViewReview] = useState(false);
 
-  const [display, setDisplay] = useState([
+  let display = [
     {
-      ID: "",
-      LastName: "",
-      FirstName: "",
-      City: "",
-      State: "",
-      OverallRating: "",
-      Age: "",
-      Gender: ""
+      LastName: '',
+      FirstName: '',
+      City: '',
+      State: '',
+      Gender: '',
+      Age: 0,
+      OverallRating: '',
+      count: 0
     }
-  ])
+  ];
 
+  let displayFinal = [
+    {
+      LastName: '',
+      FirstName: '',
+      City: '',
+      State: '',
+      Gender: '',
+      Age: 0,
+      OverallRating: '',
+      count: 0
+    }
+  ]
   const [review, setReview] = useState([
     {
       ID: "",
@@ -46,8 +60,9 @@ const Home = () => {
       City: "",
       State: "",
       OverallRating: "",
-      Age: "",
-      Gender: ""
+      Age: 0,
+      Gender: "",
+      Count: 0
     }
   ])
 
@@ -92,14 +107,83 @@ const Home = () => {
         indexObject.Gender = item.Gender
 
         resultArray = resultArray.concat(indexObject);
-        setDateInfo(resultArray);   
-        setDisplay(resultArray);     
-      })
+        console.log(resultArray)
+        // setDateInfo(resultArray);   
+
+        dateInfo = resultArray
+
+        })
     })
-    setViewReview(false);
+    await loadDisplay()
     // setPicStatus(true);
-    console.log(dateInfo);
+
+    console.log(dateInfo)
+
   };
+
+  let loadDisplay = async() => {
+    for (let i = 0; i < dateInfo.length; i++) {
+      for (let j = 0; j < display.length; j++) {
+        if (display[i] == undefined) {
+          display[i] = {
+            LastName: '',
+            FirstName: '',
+            City: '',
+            State: '',
+            Gender: '',
+            Age: 0,
+            OverallRating: '',
+            count: 0
+          }
+        }
+        if (display[i-j].LastName == dateInfo[i].LastName 
+          && display[i-j].FirstName == dateInfo[i].FirstName
+          && display[i-j].City == dateInfo[i].City
+          && display[i-j].State == dateInfo[i].State
+          && display[i-j].Gender == dateInfo[i].Gender
+          ){
+            display[i-j].Age = (display[i-j].Age*display[i-j].count + dateInfo[i].Age) / (display[i-j].count + 1);
+            display[i-j].OverallRating = (display[i-j].OverallRating*display[i-j].count + dateInfo[i].OverallRating) / (display[i-j].count + 1);
+            display[i-j].count++;
+            break;
+          } else if (j == display.length - 1){ 
+            display[i].LastName = dateInfo[i].LastName
+            display[i].FirstName = dateInfo[i].FirstName
+            display[i].City = dateInfo[i].City
+            display[i].State = dateInfo[i].State
+            display[i].Gender = dateInfo[i].Gender
+            display[i].Age = dateInfo[i].Age
+            display[i].OverallRating = dateInfo[i].OverallRating
+            display[i].count = 1
+          }   
+        }
+      }
+    let copyIndices = [];
+    for (let i=0; i<display.length; i++)
+      if (display[i].FirstName != '') 
+        copyIndices.push(i);
+
+    console.log(copyIndices);
+    console.log(display);
+
+    for (let i=0; i < copyIndices.length; i++){
+      if(displayFinal[i] == undefined){
+        displayFinal[i] = {
+            LastName: '',
+            FirstName: '',
+            City: '',
+            State: '',
+            Gender: '',
+            Age: 0,
+            OverallRating: '',
+            count: 0
+          }
+      }
+      displayFinal[i] = display[copyIndices[i]]
+    }
+    console.log(displayFinal);
+    setViewReview(false);
+  }
 
   let DropDown = (name, dropDownBank) => {
     return (
@@ -232,10 +316,14 @@ const Home = () => {
 
       <button onClick={() => searchDateInfo()}>Search</button>
 
+      <hr></hr>
+
+
       {!viewReview
-        ? dateInfo.map((result, key) => {
+        ? displayFinal.map((result, key) => {
           return (
-            <div key = {key}>
+            <div>
+            {console.log(result)}
               <DisplaySearch name = {result} id = {key} />
             </div>
           )
@@ -250,6 +338,14 @@ const Home = () => {
       
     }
     <div>
+
+        {/* ? dateInfo.map((result, key) => {
+          return (
+            <div key = {key}>
+              <DisplaySearch name = {result} id = {key} />
+            </div>
+          )
+        }) */}
 
 
     {/* {picStatus && dateInfo[0].Picture != null
