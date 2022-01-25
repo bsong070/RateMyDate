@@ -40,18 +40,20 @@ const Home = () => {
     }
   ];
 
-  let displayFinal = [
-    {
-      LastName: '',
-      FirstName: '',
-      City: '',
-      State: '',
-      Gender: '',
-      Age: 0,
-      OverallRating: '',
-      count: 0
-    }
-  ]
+  let [displayFinal,setDisplayFinal] = useState(
+    [
+      // {
+      //   LastName: '',
+      //   FirstName: '',
+      //   City: '',
+      //   State: '',
+      //   Gender: '',
+      //   Age: 0,
+      //   OverallRating: '',
+      //   count: 0
+      // }
+  ])
+
   const [review, setReview] = useState([
     {
       ID: "",
@@ -163,27 +165,52 @@ const Home = () => {
       if (display[i].FirstName != '') 
         copyIndices.push(i);
 
-    console.log(copyIndices);
-    console.log(display);
+    console.log('copy', copyIndices);
+    console.log('display', display);
+
+    let tempArray = [];
 
     for (let i=0; i < copyIndices.length; i++){
-      if(displayFinal[i] == undefined){
-        displayFinal[i] = {
-            LastName: '',
-            FirstName: '',
-            City: '',
-            State: '',
-            Gender: '',
-            Age: 0,
-            OverallRating: '',
-            count: 0
-          }
-      }
-      displayFinal[i] = display[copyIndices[i]]
+      // if(displayFinal[i] == undefined){
+      //   displayFinal[i] = [{
+      //       LastName: '',
+      //       FirstName: '',
+      //       City: '',
+      //       State: '',
+      //       Gender: '',
+      //       Age: 0,
+      //       OverallRating: '',
+      //       count: 0
+      //     }]
+      // }
+
+      // console.log(display[copyIndices[i]])
+      // tempArray.push(display[copyIndices[i]]);
+      // console.log(tempArray);
+
+
+      
+        let tempResult = {}
+        tempResult.LastName = display[copyIndices[i]].LastName
+        tempResult.FirstName = display[copyIndices[i]].FirstName
+        tempResult.City = display[copyIndices[i]].City
+        tempResult.State = display[copyIndices[i]].State
+        tempResult.Gender = display[copyIndices[i]].Gender
+        tempResult.Age = display[copyIndices[i]].Age
+        tempResult.OverallRating = display[copyIndices[i]].OverallRating
+        tempResult.count = display[copyIndices[i]].count
+
+        tempArray = tempArray.concat(tempResult);
+        setDisplayFinal(tempArray);
+      
+      // setDisplayFinal(...displayFinal, [display[copyIndices[i]]])
     }
-    console.log(displayFinal);
+    // setDisplayFinal(tempArray);
+    console.log('disf', tempArray)
+    setDisplayFinal(tempArray);
     setViewReview(false);
   }
+  console.log('displayfina', displayFinal);
 
   let DropDown = (name, dropDownBank) => {
     return (
@@ -318,7 +345,7 @@ const Home = () => {
 
       <hr></hr>
 
-
+      {console.log(displayFinal)}
       {!viewReview
         ? displayFinal.map((result, key) => {
           return (
