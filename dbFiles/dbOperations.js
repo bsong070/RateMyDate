@@ -6,7 +6,7 @@ const getDateInfo = async (lastName, firstName, city, state) => {
     console.log("success");
     let pool = await sql.connect(config);
     let result = await pool.request().query(`
-            SELECT ID, LastName, FirstName, City, State, Ethnicity, OverallRating, Gender, Age
+            SELECT *
             FROM Ratings 
             WHERE 
             LastName LIKE '%${lastName}%' AND

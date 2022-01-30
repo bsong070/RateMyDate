@@ -1,4 +1,4 @@
-import "./App.css";
+import './index.css';
 import React, { useState } from "react";
 import {states, cities, ethnicity, gender, age} from './DropDownItem';
 
@@ -9,19 +9,6 @@ const Home = () => {
     City: "",
     State: "",
   });
-  
-  // const [dateInfo, setDateInfo] = useState([
-  //   {
-  //     ID: "",
-  //     LastName: "",
-  //     FirstName: "",
-  //     City: "",
-  //     State: "",
-  //     OverallRating: "",
-  //     Age: "",
-  //     Gender: ""
-  //   }
-  // ])
 
   let dateInfo;
 
@@ -40,19 +27,7 @@ const Home = () => {
     }
   ];
 
-  let [displayFinal,setDisplayFinal] = useState(
-    [
-      // {
-      //   LastName: '',
-      //   FirstName: '',
-      //   City: '',
-      //   State: '',
-      //   Gender: '',
-      //   Age: 0,
-      //   OverallRating: '',
-      //   count: 0
-      // }
-  ])
+  let [displayFinal,setDisplayFinal] = useState([])
 
   const [review, setReview] = useState([
     {
@@ -104,9 +79,11 @@ const Home = () => {
         indexObject.FirstName = item.FirstName
         indexObject.City = item.City
         indexObject.State = item.State
+        indexObject.Ethnicity = item.Ethnicity
         indexObject.OverallRating = item.OverallRating
         indexObject.Age = item.Age
         indexObject.Gender = item.Gender
+        indexObject.Picture = item.Picture
 
         resultArray = resultArray.concat(indexObject);
         console.log(resultArray)
@@ -116,14 +93,14 @@ const Home = () => {
 
         })
     })
-    await loadDisplay()
+    loadDisplay()
     // setPicStatus(true);
 
     console.log(dateInfo)
 
   };
 
-  let loadDisplay = async() => {
+  let loadDisplay = () => {
     for (let i = 0; i < dateInfo.length; i++) {
       for (let j = 0; j < display.length; j++) {
         if (display[i] == undefined) {
@@ -133,6 +110,7 @@ const Home = () => {
             City: '',
             State: '',
             Gender: '',
+            Ethnicity: '',
             Age: 0,
             OverallRating: '',
             count: 0
@@ -143,6 +121,7 @@ const Home = () => {
           && display[i-j].City == dateInfo[i].City
           && display[i-j].State == dateInfo[i].State
           && display[i-j].Gender == dateInfo[i].Gender
+          && display[i-j].Ethnicity == dateInfo[i].Ethnicity
           ){
             display[i-j].Age = (display[i-j].Age*display[i-j].count + dateInfo[i].Age) / (display[i-j].count + 1);
             display[i-j].OverallRating = (display[i-j].OverallRating*display[i-j].count + dateInfo[i].OverallRating) / (display[i-j].count + 1);
@@ -154,6 +133,7 @@ const Home = () => {
             display[i].City = dateInfo[i].City
             display[i].State = dateInfo[i].State
             display[i].Gender = dateInfo[i].Gender
+            display[i].Ethnicity = dateInfo[i].Ethnicity
             display[i].Age = dateInfo[i].Age
             display[i].OverallRating = dateInfo[i].OverallRating
             display[i].count = 1
@@ -165,52 +145,26 @@ const Home = () => {
       if (display[i].FirstName != '') 
         copyIndices.push(i);
 
-    console.log('copy', copyIndices);
-    console.log('display', display);
-
     let tempArray = [];
 
     for (let i=0; i < copyIndices.length; i++){
-      // if(displayFinal[i] == undefined){
-      //   displayFinal[i] = [{
-      //       LastName: '',
-      //       FirstName: '',
-      //       City: '',
-      //       State: '',
-      //       Gender: '',
-      //       Age: 0,
-      //       OverallRating: '',
-      //       count: 0
-      //     }]
-      // }
-
-      // console.log(display[copyIndices[i]])
-      // tempArray.push(display[copyIndices[i]]);
-      // console.log(tempArray);
-
-
-      
         let tempResult = {}
         tempResult.LastName = display[copyIndices[i]].LastName
         tempResult.FirstName = display[copyIndices[i]].FirstName
         tempResult.City = display[copyIndices[i]].City
         tempResult.State = display[copyIndices[i]].State
         tempResult.Gender = display[copyIndices[i]].Gender
+        tempResult.Ethnicity = display[copyIndices[i]].Ethnicity
         tempResult.Age = display[copyIndices[i]].Age
         tempResult.OverallRating = display[copyIndices[i]].OverallRating
         tempResult.count = display[copyIndices[i]].count
 
         tempArray = tempArray.concat(tempResult);
         setDisplayFinal(tempArray);
-      
-      // setDisplayFinal(...displayFinal, [display[copyIndices[i]]])
-    }
-    // setDisplayFinal(tempArray);
-    console.log('disf', tempArray)
+          }
     setDisplayFinal(tempArray);
     setViewReview(false);
   }
-  console.log('displayfina', displayFinal);
 
   let DropDown = (name, dropDownBank) => {
     return (
@@ -224,7 +178,6 @@ const Home = () => {
     )
   }
 
-//add age
 
   let viewReviews = async(lastName, firstName, city, state) => {
     const newData = await fetch("/api", {
@@ -262,54 +215,74 @@ const Home = () => {
         indexObject.Respect = item.Respect
         indexObject.Comments = item.Comments
         indexObject.Age = item.Age
+        indexObject.Picture = item.Picture
 
         resultArray = resultArray.concat(indexObject);
         setReview(resultArray);     
       })
     })
-    console.log(newData)
-
     setViewReview(true);
-    console.log(review)
   }
 
 
   let DisplaySearch = ({name, id}) => {
     return (
-      <div>
-      <button id = {name.ID} onClick = {() => viewReviews(name.LastName, name.FirstName, name.City, name.State)}>View All</button>
-      <p> Id (DELETE) : {name.ID}</p>
-        <p>Name: {name.FirstName} {name.LastName}</p>
-        <p>Age: {name.Age}</p>
-        <p>Gender: {name.Gender}</p>
-        <p>Location: {name.City} {name.State}</p>
-        <p>Ethnicity: {name.Ethnicity}</p>
-        <p>Rating: {name.OverallRating}</p>
-        <hr></hr>
-      </div>
+
+<div class="container">
+  <div class="row justify-content-start">
+    <div class="col-2">
+    <p>{name.FirstName} {name.LastName}</p>
+    </div>
+    <div class="col-2">
+    <p>{name.Age}</p>
+    </div>
+    <div class="col-2">
+    <p>{name.Gender}</p>
+    </div>
+    <div class="col-2">
+    <p>{name.City}, {name.State}</p>
+    </div>
+    <div class="col-2">
+    <p>{name.Ethnicity}</p>
+    </div>
+    <div class="col-2">
+    <p>{name.OverallRating}</p>
+    </div>
+    <div class="col-2">
+    <button id = {name.ID} onClick = {() => viewReviews(name.LastName, name.FirstName, name.City, name.State)}>View All</button>
+    </div>
+  </div>
+
+  <hr></hr>
+</div>
+
     )
   }
 
   let DisplayReview = ({name, id}) => {
+    console.log(name);
     return (
       <div>
       <button id = {name.ID} onClick = {() => viewReviews(name.LastName, name.FirstName, name.City, name.State)}>View All</button>
-      <p> Id (DELETE) : {name.ID}</p>
-        <p>Name: {name.FirstName} {name.LastName}</p>
-        <p>Age: {name.Age}</p>
-        <p>Gender: {name.Gender}</p>
-        <p>Location: {name.City} {name.State}</p>
-        <p>Ethnicity: {name.Ethnicity}</p>
-        <p>Rating: {name.OverallRating}</p>
-        <p>Ethnicity: {name.Ethnicity}</p>
-        <p>Humor: {name.Humor}</p>
-        <p>Personality: {name.Personality}</p>
-        <p>Kindness: {name.Kindness}</p>
-        <p>Social: {name.Social}</p>
-        <p>Listening: {name.Listening}</p>
-        <p>Respect: {name.Respect}</p>
-        <p>Comments: {name.Comments}</p>
-        <p>Picture</p>
+        <p>{name.FirstName} {name.LastName}</p>
+        <p>{name.Age}</p>
+        <p>{name.Gender}</p>
+        <p>{name.City} {name.State}</p>
+        <p>{name.Ethnicity}</p>
+
+        <p>{name.OverallRating}</p>
+        <p>{name.Personality}</p>
+        <p>{name.Humor}</p>
+        <p>{name.Kindness}</p>
+        <p>{name.Social}</p>
+        <p>{name.Listening}</p>
+        <p>{name.Respect}</p>
+        <p>{name.Comments}</p>
+
+
+        {/* <img src= {require(name.Picture)} class="card-img-top" alt={require("./upload/default.jpg")}></img> */}
+
+
         <hr></hr>
       </div>
     )
@@ -318,71 +291,107 @@ const Home = () => {
   // logic false true between display and review
 
   return (
-    <div className="App">
-    <div>
-      <input
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-4">
+    <input
         name="LastName"
         placeholder="Last Name"
         onChange={setInput}
       ></input>
-      <input
+    </div>
+    <div class="col-4">
+    <input
         name="FirstName"
         placeholder="First Name"
         onChange={setInput}
-      ></input>
-      {DropDown("City", cities)}
-      {DropDown("State", states)}
+      ></input>    
     </div>
-
-      {/* <p>
-        Name: {dateInfo.FirstName} {dateInfo.LastName}
-      </p>
-      <p>
-        Location: {dateInfo.City}, {dateInfo.State}
-      </p> */}
-
-      <button onClick={() => searchDateInfo()}>Search</button>
-
-      <hr></hr>
-
-      {console.log(displayFinal)}
-      {!viewReview
-        ? displayFinal.map((result, key) => {
-          return (
-            <div>
-            {console.log(result)}
-              <DisplaySearch name = {result} id = {key} />
-            </div>
-          )
-        })
-      : review.map((result,key) => {
-        return (
-          <div>
-            <DisplayReview name = {result} id = {key} />
-          </div>
-        )
-      })
-      
-    }
-    <div>
-
-        {/* ? dateInfo.map((result, key) => {
-          return (
-            <div key = {key}>
-              <DisplaySearch name = {result} id = {key} />
-            </div>
-          )
-        }) */}
-
-
-    {/* {picStatus && dateInfo[0].Picture != null
-       ? <img src = {require(`${dateInfo.Picture}`)} className = "photo"/>
-       : <img src = {require('./upload/default.jpg')} className = "photo" />
-    
-    } */}
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-4">
+    {DropDown("City", cities)}
 
     </div>
+    <div class="col-4">
+    {DropDown("State", states)}
+
     </div>
-  );
-};
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-2">
+      <button type="button" class="btn btn-dark" onClick={() => searchDateInfo()}>Search</button>
+    </div>
+  </div>
+
+
+<hr></hr>
+
+
+<div class="row justify-content-start">
+    <div class = 'col-2'>
+      <p>Name</p>
+    </div>
+    <div class = 'col-2'>
+      <p>Age</p>
+    </div>
+    <div class = 'col-2'>
+      <p>Gender</p>
+    </div>
+    <div class = 'col-2'>
+      <p>Location</p>
+    </div>
+    <div class = 'col-2'>
+      <p>Ethnicity</p>
+    </div>
+    <div class = 'col-2'>
+      <p>Rating</p>
+    </div>
+</div>
+
+ {!viewReview ? 
+
+ 
+ displayFinal.map((result, key) => {
+     return (
+       <div>
+       {console.log(result)}
+         <DisplaySearch name = {result} id = {key} />
+       </div>
+     )
+   })
+ : review.map((result,key) => {
+   return (
+     <div>
+       <DisplayReview name = {result} id = {key} />
+     </div>
+   )
+ })
+ }
+ </div>
+  )
+}
 export default Home;
+
+
+
+
+
+   {/* ? dateInfo.map((result, key) => {
+     return (
+       <div key = {key}>
+         <DisplaySearch name = {result} id = {key} />
+       </div>
+     )
+   }) 
+
+
+//  {picStatus && dateInfo[0].Picture != null
+//  ? <img src = {require(`${dateInfo.Picture}`)} className = "photo"/>
+//  : <img src = {require('./upload/default.jpg')} className = "photo" />
+
+// }
+
+// </div>
+*/}

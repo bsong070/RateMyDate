@@ -8,15 +8,13 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="App">
         <Navbar />
-        <div className="content">
+        <div>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/newreview" element={<NewEntry />} />
           </Routes>
         </div>
-      </div>
     </BrowserRouter>
   );
 };

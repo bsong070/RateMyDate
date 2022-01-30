@@ -101,7 +101,7 @@ const NewEntry = () => {
 
   let StarRating = (name) => {
     return (
-      <div className="star-rating">
+      <div>
         {[...Array(5)].map((star, index) => {
           index += 1;
           return (
@@ -111,7 +111,7 @@ const NewEntry = () => {
               className={index <= onType[name] ? "on" : "off"}
               onClick={() => setOnType({...onType, [name]:index})}
             >
-              <span className="star">&#9733;</span>
+              <span>&#9733;</span>
               {console.log(onType)}
             </button>
           );
@@ -121,56 +121,157 @@ const NewEntry = () => {
   }
 
   return (
-    <div className="create">
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-4">
       <h2>Add a new review</h2>
-      <input
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class = 'col-4'>
+      <p>Last Name</p>
+      </div>
+    <div class="col-4">
+    <input
         name="LastName"
         placeholder="Last Name"
         onChange={setInput}
-      ></input>
-      <input
+      ></input>    
+      </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class = 'col-4'>
+      <p>First Name</p>
+      </div>
+    <div class="col-4">
+    <input
         name="FirstName"
         placeholder="First Name"
         onChange={setInput}
       ></input>
+      </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class = 'col-4'>
       <p>State</p>
-      {DropDown("State", states, states[0])}
+    </div>
+    <div class="col-4">
+      {DropDown("State", states, states[0])} 
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class = 'col-4'>
       <p>City</p>
+    </div>
+    <div class="col-4">
       {DropDown("City", cities, cities[0])}
-      <p>Ethnicity</p>
-      {DropDown("Ethnicity", ethnicity, ethnicity[0])}
-      <p>Gender</p>
-      {DropDown("Gender", gender, gender[0])}
-      <p>Age</p>
-      {DropDown("Age", age, age[0])}
-
-
-      <p>Rating: </p>{StarRating("OverallRating")}
-      <p>Personality: </p>{StarRating("Personality")}
-      <p>Humor: </p>{StarRating("Humor")}
-      <p>Kindness: </p>{StarRating("Kindness")}
-      <p>Social: </p>{StarRating("Social")}
-      <p>Listening: </p>{StarRating("Listening")}
-      <p>Respect: </p>{StarRating("Respect")}
-
-      <input name="Comments" placeholder="Comments" onChange={setInput}></input>
-
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class = 'col-4'>
+    <p>Ethnicity</p>
+    </div>
+    <div class="col-4">
+    {DropDown("Ethnicity", ethnicity, ethnicity[0])}
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class = 'col-4'>
+    <p>Gender</p>
+    </div>
+    <div class="col-4">
+    {DropDown("Gender", gender, gender[0])}
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class = 'col-4'>
+    <p>Age</p>
+    </div>
+    <div class="col-4">
+    {DropDown("Age", age, age[0])}
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class = 'col-4'>
+    <p>Rating: </p>    </div>
+    <div class="col-4">
+    {StarRating("OverallRating")}
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class = 'col-4'>
+    <p>Personality: </p>
+        </div>
+    <div class="col-4">
+    {StarRating("Personality")}
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class = 'col-4'>
+    <p>Humorous: </p>        </div>
+    <div class="col-4">
+    {StarRating("Humor")}
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class = 'col-4'>
+    <p>Kindness: </p>       
+    </div>
+    <div class="col-4">
+    {StarRating("Kindness")}
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class = 'col-4'>
+    <p>Sociable: </p>
+    </div>
+    <div class="col-4">
+    {StarRating("Social")}
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class = 'col-4'>
+    <p>Listening: </p>    </div>
+    <div class="col-4">
+    {StarRating("Listening")}
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class = 'col-4'>
+    <p>Respect: </p>    
+    </div>
+    <div class="col-4">
+    {StarRating("Respect")}
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class = 'col-4'>
+    <p>Comments: </p>    
+    </div>
+    <textarea name="Comments" placeholder="Comments" onChange={setInput}></textarea>
+  </div>
+  <div class="row justify-content-center">
+    <div class = 'col-8'>
       <form action="/uploadpicture" method="POST" encType="multipart/form-data">
-        <h3>Upload Picture Optional</h3>
+        <p>Upload Picture: </p>    
         <input type="file" name="Picture" accept="image/*"/>
       <button
       type = "submit"
-      className = "btnSubmit"
-        onClick={() => {
+      class="btn btn-secondary"
+      onClick={() => {
           addNewReview();
         }}
       >
         Submit Review
       </button>
       </form>
-
-
     </div>
+  </div>
+
+
+
+</div>
+
   );
 };
 export default NewEntry;
