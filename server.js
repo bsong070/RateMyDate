@@ -3,7 +3,7 @@ const cors = require("cors");
 const dbOperations = require("./dbFiles/dbOperations");
 const fileUpload = require("express-fileupload");
 
-const API_PORT = process.env.PORT || 5000;
+const API_PORT = process.env.PORT || 5000; // add env file or autos to port 5000
 const app = express();
 
 app.use(fileUpload());
@@ -12,9 +12,6 @@ app.use(express.urlencoded());
 app.use(cors());
 
 app.post("/api", async (req, res) => {
-  console.log("called api");
-  console.log(req.body.name);
-
   const result = await dbOperations.getDateInfo(
     req.body.lastName,
     req.body.firstName,
@@ -35,7 +32,7 @@ app.post("/uploadpicture", async (req, res) => {
 
   picture.mv(uploadPath, (err) => {
     if (!req.files || Object.keys(req.files).length === 0 ) {
-      res.status(400).send('no files were uploaded');
+      alert('No files were uploaded');
     }
   })
   
@@ -44,9 +41,6 @@ app.post("/uploadpicture", async (req, res) => {
 });
 
 app.post("/insert", async (req, res) => {
-  console.log("called insert");
-  console.log("from insert", req.body.name);
-
   await dbOperations.addReview(
     req.body.lastName,
     req.body.firstName,
@@ -63,7 +57,6 @@ app.post("/insert", async (req, res) => {
     req.body.listening,
     req.body.respect,
     req.body.comments,
-    // req.body.picture,
   );
   const result = await dbOperations.getDateInfo(
     req.body.lastName,

@@ -1,6 +1,6 @@
 import './index.css';
 import React, { useState } from "react";
-import {states, cities, ethnicity, gender, age} from './DropDownItem';
+import {states, cities} from './DropDownItem';
 
 const Home = () => {
   const [onType, setOnType] = useState({
@@ -10,9 +10,10 @@ const Home = () => {
     State: "",
   });
 
-  let dateInfo;
-
+  
   const [viewReview, setViewReview] = useState(false);
+  
+  let dateInfo;
 
   let display = [
     {
@@ -43,8 +44,6 @@ const Home = () => {
     }
   ])
 
-  const [picStatus, setPicStatus] = useState(false);
-
   const setInput = (e) => {
     const { name, value } = e.target;
     
@@ -52,11 +51,10 @@ const Home = () => {
       ...prevState,
       [name]: value,
     }));
-    console.log(onType);
   };
 
   const searchDateInfo = async (url) => {
-    const newData = await fetch("/api", {
+    await fetch("/api", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -86,18 +84,12 @@ const Home = () => {
         indexObject.Picture = item.Picture
 
         resultArray = resultArray.concat(indexObject);
-        console.log(resultArray)
-        // setDateInfo(resultArray);   
 
         dateInfo = resultArray
 
         })
     })
     loadDisplay()
-    // setPicStatus(true);
-
-    console.log(dateInfo)
-
   };
 
   let loadDisplay = () => {
@@ -180,7 +172,7 @@ const Home = () => {
 
 
   let viewReviews = async(lastName, firstName, city, state) => {
-    const newData = await fetch("/api", {
+    await fetch("/api", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -258,7 +250,6 @@ const Home = () => {
   }
 
   let DisplayReview = ({name, id}) => {
-    console.log(name);
     return (
       <div>
       <div class="container border rounded bg-gradient">
@@ -279,7 +270,10 @@ const Home = () => {
           <p>{name.OverallRating}</p>
           </div>
           <div class="col-2">
-          <img src = {require(`${name.Picture}`)} className = "photo"/>
+          {name.Picture != null
+          ? <img src = {require(`${name.Picture}`)} className = "photo"/>
+          : <img src = {require('./upload/default.jpg')} className = "photo"/>
+          }
           <br></br>
           <br></br>
           </div>
@@ -357,8 +351,6 @@ const Home = () => {
     )
   }
 
-  // logic false true between display and review
-
   return (
 
 <div class="container">
@@ -413,7 +405,6 @@ const Home = () => {
      return (
        <div>
   <RatingDisplay />
-       {console.log(result)}
          <DisplaySearch name = {result} id = {key} />
        </div>
      )

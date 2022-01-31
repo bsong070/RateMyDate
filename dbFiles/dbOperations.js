@@ -3,9 +3,8 @@ const sql = require("mssql/msnodesqlv8");
 
 const getDateInfo = async (lastName, firstName, city, state) => {
   try {
-    console.log("success");
     let pool = await sql.connect(config);
-    let result = await pool.request().query(`
+    return await pool.request().query(`
             SELECT *
             FROM Ratings 
             WHERE 
@@ -14,11 +13,8 @@ const getDateInfo = async (lastName, firstName, city, state) => {
             City LIKE '%${city}%' AND
             State LIKE '%${state}%'
         `);
-
-    console.log(result);
-    return result;
   } catch (error) {
-    console.log(error);
+    alert(error);
   }
 };
 
@@ -81,7 +77,7 @@ const addReview = async (
                 )
             `);
   } catch (error) {
-    console.log(error);
+    alert(error);
   }
 };
 
@@ -100,7 +96,7 @@ const uploadPicture = async (picture) => {
       ORDER BY ID DESC
       `);
   } catch (error) {
-    console.log(error);
+    alert(error);
   }
 };
 

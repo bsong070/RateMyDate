@@ -11,21 +11,18 @@ const NewEntry = () => {
     FirstName: "",
     City: "",
     State: "",
-    OverallRating: "",
-    Ethnicity: "",
-    Personality: "",
-    Humor: "",
-    Kindness: "",
-    Social: "",
-    Listening: "",
-    Respect: "",
+    OverallRating: 0,
+    Ethnicity: 0,
+    Personality: 0,
+    Humor: 0,
+    Kindness: 0,
+    Social: 0,
+    Listening: 0,
+    Respect: 0,
     Comments: "",
     Gender: "",
-    Age: ""
+    Age: 0
   });
-
-  const [dateInfo, setDateInfo] = useState([]);
-
 
 
   const setInput = (e) => {
@@ -39,7 +36,27 @@ const NewEntry = () => {
   };
 
   const addNewReview = async (url) => {
-    const newData = await fetch("/insert", {
+    if (onType.State == '' || onType.State == states[0]
+    || onType.City == '' || onType.City == cities[0]
+    || onType.LastName == '' || onType.LastName == cities[0]
+    || onType.FirstName == '' || onType.FirstName == cities[0]
+    || onType.OverallRating == '' || onType.OverallRating == cities[0]
+    || onType.Ethnicity == '' || onType.Ethnicity == cities[0]
+    || onType.Personality == '' || onType.Personality == cities[0]
+    || onType.Kindness == '' || onType.Kindness == cities[0]
+    || onType.Social == '' || onType.Social == cities[0]
+    || onType.Listening == '' || onType.Listening == cities[0]
+    || onType.Humor == '' || onType.Humor == cities[0]
+    || onType.Respect == '' || onType.Respect == cities[0]
+    || onType.Comments == '' || onType.Comments == cities[0]
+    || onType.Age == '' || onType.Age == cities[0]
+    || onType.Gender == '' || onType.Gender == cities[0]
+    ) {
+      return alert('Please Enter in All Fields');
+    }
+
+
+    await fetch("/insert", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -64,28 +81,10 @@ const NewEntry = () => {
       }),
     })
       .then((res) => res.json())
-      // .then(() => (window.location.href = "/"));
-    //   .then(() => (window.location.href = "/uploadpicture"));
-    // console.log(newData);
-    // setDateInfo({
-    //   LastName: newData[0].LastName,
-    //   FirstName: newData[0].FirstName,
-    //   City: newData[0].City,
-    //   State: newData[0].State,
-    //   OverallRating: newData[0].OverallRating,
-    //   Ethnicity: newData[0].Ethnicity,
-    //   Personality: newData[0].Personality,
-    //   Humor: newData[0].Humor,
-    //   Kindness: newData[0].Kindness,
-    //   Social: newData[0].Social,
-    //   Listening: newData[0].Listening,
-    //   Respect: newData[0].Respect,
-    //   Comments: newData[0].Comments,
-    //   Gender: newData[0].Gender,
-    //   Age: newData[0].Age
-    // });
-    // console.log(dateInfo);
-  };
+    };
+    
+
+    
 
   let DropDown = (name, dropDownBank, defaultValue) => {
     return (
