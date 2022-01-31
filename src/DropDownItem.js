@@ -1,5 +1,5 @@
 let states = [
-  "Please Select a State",
+  "Select a State",
   "Alaska",
   "Alabama",
   "Arkansas",
@@ -58,7 +58,7 @@ let states = [
 ];
 
 let cities = [
-  "Please Select a City",
+  "Select a City",
     "Abbeville",
     "Abbotsford",
     "Aberdeen",
@@ -6802,14 +6802,14 @@ let cities = [
 
 
 let gender = [
-  "Please Select a Gender",
+  "Select a Gender",
   "Female",
   "Male",
   "Other"
 ]
 
 let ethnicity = [
-  "Please Select an Ethnicity",
+  "Select an Ethnicity",
   "American Indian or Alaska Native",
   "Asian",
   "Black or African American",
@@ -6819,7 +6819,7 @@ let ethnicity = [
 ];
 
 let age = [];
-age[0] = "Please Select an Age";
+age[0] = "Select an Age";
 
 for (let i = 1; i < 101; i++)
   age[i] = i;

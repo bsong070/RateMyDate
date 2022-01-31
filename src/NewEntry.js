@@ -1,5 +1,5 @@
-import "./App.css";
-import React, { useRef, useState } from "react";
+import './index.css';
+import React, { useState } from "react";
 import {states, cities, ethnicity, gender, age} from './DropDownItem';
 
 // add ethincity
@@ -122,14 +122,18 @@ const NewEntry = () => {
 
   return (
 <div class="container">
-  <div class="row justify-content-center">
+<br></br>
+<br></br>
+  <div class="row justify-content-start">
     <div class="col-4">
-      <h2>Add a new review</h2>
+      <h2>Add a new review</h2><i class="fas fa-heart"></i>
+    <br></br>
+    <br></br>
     </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-start">
     <div class = 'col-4'>
-      <p>Last Name</p>
+      <h5>Last Name</h5>
       </div>
     <div class="col-4">
     <input
@@ -139,9 +143,9 @@ const NewEntry = () => {
       ></input>    
       </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-start">
     <div class = 'col-4'>
-      <p>First Name</p>
+      <h5>First Name</h5>
       </div>
     <div class="col-4">
     <input
@@ -151,110 +155,114 @@ const NewEntry = () => {
       ></input>
       </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-start">
     <div class = 'col-4'>
-      <p>State</p>
+      <h5>State</h5>
     </div>
     <div class="col-4">
       {DropDown("State", states, states[0])} 
     </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-start">
     <div class = 'col-4'>
-      <p>City</p>
+      <h5>City</h5>
     </div>
     <div class="col-4">
       {DropDown("City", cities, cities[0])}
     </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-start">
     <div class = 'col-4'>
-    <p>Ethnicity</p>
+    <h5>Ethnicity</h5>
     </div>
     <div class="col-4">
     {DropDown("Ethnicity", ethnicity, ethnicity[0])}
     </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-start">
     <div class = 'col-4'>
-    <p>Gender</p>
+    <h5>Gender</h5>
     </div>
     <div class="col-4">
     {DropDown("Gender", gender, gender[0])}
     </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-start">
     <div class = 'col-4'>
-    <p>Age</p>
+    <h5>Age</h5>
     </div>
     <div class="col-4">
     {DropDown("Age", age, age[0])}
     </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-start">
     <div class = 'col-4'>
-    <p>Rating: </p>    </div>
+    <h5>Rating: </h5>    </div>
     <div class="col-4">
     {StarRating("OverallRating")}
     </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-start">
     <div class = 'col-4'>
-    <p>Personality: </p>
+    <h5>Personality: </h5>
         </div>
     <div class="col-4">
     {StarRating("Personality")}
     </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-start">
     <div class = 'col-4'>
-    <p>Humorous: </p>        </div>
+    <h5>Humor: </h5>        </div>
     <div class="col-4">
     {StarRating("Humor")}
     </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-start">
     <div class = 'col-4'>
-    <p>Kindness: </p>       
+    <h5>Kindness: </h5>       
     </div>
     <div class="col-4">
     {StarRating("Kindness")}
     </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-start">
     <div class = 'col-4'>
-    <p>Sociable: </p>
+    <h5>Sociable: </h5>
     </div>
     <div class="col-4">
     {StarRating("Social")}
     </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-start">
     <div class = 'col-4'>
-    <p>Listening: </p>    </div>
+    <h5>Attentive: </h5>    </div>
     <div class="col-4">
     {StarRating("Listening")}
     </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-start">
     <div class = 'col-4'>
-    <p>Respect: </p>    
+    <h5>Respectful: </h5>    
     </div>
     <div class="col-4">
     {StarRating("Respect")}
     </div>
   </div>
-  <div class="row justify-content-center">
-    <div class = 'col-4'>
-    <p>Comments: </p>    
+  <div class="row justify-content-start">
+    <div class = 'col-2'>
+    <br></br>
+    <h5>Comments: </h5>    
     </div>
-    <textarea name="Comments" placeholder="Comments" onChange={setInput}></textarea>
+    <textarea name="Comments" placeholder="Please add your comments here" onChange={setInput}></textarea>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-start">
     <div class = 'col-8'>
+    <br></br>
       <form action="/uploadpicture" method="POST" encType="multipart/form-data">
-        <p>Upload Picture: </p>    
+        <h5>Upload Picture: </h5>    
         <input type="file" name="Picture" accept="image/*"/>
+        <br></br>
+        <br></br>
       <button
       type = "submit"
       class="btn btn-secondary"

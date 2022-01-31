@@ -233,7 +233,7 @@ const Home = () => {
     <div class="col-2">
     <p>{name.FirstName} {name.LastName}</p>
     </div>
-    <div class="col-2">
+    <div class="col-1">
     <p>{name.Age}</p>
     </div>
     <div class="col-2">
@@ -248,12 +248,10 @@ const Home = () => {
     <div class="col-2">
     <p>{name.OverallRating}</p>
     </div>
-    <div class="col-2">
-    <button id = {name.ID} onClick = {() => viewReviews(name.LastName, name.FirstName, name.City, name.State)}>View All</button>
+    <div class="col-1">
+    <button type="button" class="btn btn-dark"  id = {name.ID} onClick = {() => viewReviews(name.LastName, name.FirstName, name.City, name.State)}>View All</button>
     </div>
-  </div>
-
-  <hr></hr>
+    </div>
 </div>
 
     )
@@ -263,77 +261,84 @@ const Home = () => {
     console.log(name);
     return (
       <div>
-      <button id = {name.ID} onClick = {() => viewReviews(name.LastName, name.FirstName, name.City, name.State)}>View All</button>
-        <p>{name.FirstName} {name.LastName}</p>
-        <p>{name.Age}</p>
-        <p>{name.Gender}</p>
-        <p>{name.City} {name.State}</p>
-        <p>{name.Ethnicity}</p>
-
-        <p>{name.OverallRating}</p>
-        <p>{name.Personality}</p>
-        <p>{name.Humor}</p>
-        <p>{name.Kindness}</p>
-        <p>{name.Social}</p>
-        <p>{name.Listening}</p>
+      <div class="container border rounded bg-gradient">
+      <br></br>
+        <div class="row justify-content-start">
+        <div class="col-2">
+          <p>OverallRating</p>
+          </div>
+          <div class="col-2">
+          <p>Picture</p>
+          </div>
+          <div class="col-2">
+          <p>Comments</p>
+          </div>
+        </div>
+        <div class="row justify-content-start">
+          <div class="col-2">
+          <p>{name.OverallRating}</p>
+          </div>
+          <div class="col-2">
+          <img src = {require(`${name.Picture}`)} className = "photo"/>
+          <br></br>
+          <br></br>
+          </div>
+          <div class="col-8">
+          <p>{name.Comments}</p>
+          </div>
+        </div>
+          <div class="row justify-content-center">
+          <div class = 'col-2'>
+            <p>Personality</p>
+          </div>
+          <div class = 'col-2'>
+            <p>Humor</p>
+          </div>
+          <div class = 'col-2'>
+            <p>Kindness</p>
+          </div>
+          <div class = 'col-2'>
+            <p>Sociable</p>
+          </div>
+          <div class = 'col-2'>
+            <p>Attentive</p>
+          </div>
+          <div class = 'col-2'>
+            <p>Respectful</p>
+          </div>
+          <div class="col-2">
+          <p>{name.Personality}</p>
+          </div>
+          <div class="col-2">
+          <p>{name.Humor}</p>
+          </div>
+          <div class="col-2">
+          <p>{name.Kindness}</p>
+          </div>
+          <div class="col-2">
+          <p>{name.Social}</p>
+          </div>
+          <div class="col-2">
+          <p>{name.Listening}</p>
+          </div>
+          <div class="col-2">
         <p>{name.Respect}</p>
-        <p>{name.Comments}</p>
-
-
-        {/* <img src= {require(name.Picture)} class="card-img-top" alt={require("./upload/default.jpg")}></img> */}
-
-
-        <hr></hr>
-      </div>
+          </div>
+        </div>
+        </div>
+        <br></br>
+        </div>
     )
   }
 
-  // logic false true between display and review
-
-  return (
-
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-4">
-    <input
-        name="LastName"
-        placeholder="Last Name"
-        onChange={setInput}
-      ></input>
-    </div>
-    <div class="col-4">
-    <input
-        name="FirstName"
-        placeholder="First Name"
-        onChange={setInput}
-      ></input>    
-    </div>
-  </div>
-  <div class="row justify-content-center">
-    <div class="col-4">
-    {DropDown("City", cities)}
-
-    </div>
-    <div class="col-4">
-    {DropDown("State", states)}
-
-    </div>
-  </div>
-  <div class="row justify-content-center">
-    <div class="col-2">
-      <button type="button" class="btn btn-dark" onClick={() => searchDateInfo()}>Search</button>
-    </div>
-  </div>
-
-
-<hr></hr>
-
-
-<div class="row justify-content-start">
+  let RatingDisplay = () => {
+    return (
+      <div class="row justify-content-start">
+    <hr></hr>
     <div class = 'col-2'>
       <p>Name</p>
     </div>
-    <div class = 'col-2'>
+    <div class = 'col-1'>
       <p>Age</p>
     </div>
     <div class = 'col-2'>
@@ -346,16 +351,68 @@ const Home = () => {
       <p>Ethnicity</p>
     </div>
     <div class = 'col-2'>
-      <p>Rating</p>
+      <p>Average Rating</p>
     </div>
 </div>
+    )
+  }
 
+  // logic false true between display and review
+
+  return (
+
+<div class="container">
+    <br></br>
+    <br></br>
+    <br></br>
+    <div class="row justify-content-center">
+    <div class="col-4">
+      <h2>Lookup Date Database</h2>
+    <br></br>
+    <br></br>
+    <br></br>
+    </div>
+    <div class="col-6">
+    <h2></h2>    
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-2">
+    <input
+        name="FirstName"
+        placeholder="First Name"
+        onChange={setInput}
+      ></input>    
+    </div>
+    <br></br>
+    <br></br>
+    <div class="col-2">
+    <input
+        name="LastName"
+        placeholder="Last Name"
+        onChange={setInput}
+      ></input>
+    </div>
+    <div class="col-2">
+    {DropDown("City", cities)}
+    </div>
+    <div class="col-2">
+    {DropDown("State", states)}
+    </div>
+    <div class="col-2">
+      <button type="button" class="btn btn-dark d-grid gap-2 col-6 mx-auto" onClick={() => searchDateInfo()}>Search</button>
+    </div>
+  </div>
+
+<br></br>
+<br></br>
+<br></br>
+<br></br>
  {!viewReview ? 
-
- 
  displayFinal.map((result, key) => {
      return (
        <div>
+  <RatingDisplay />
        {console.log(result)}
          <DisplaySearch name = {result} id = {key} />
        </div>
@@ -369,14 +426,13 @@ const Home = () => {
    )
  })
  }
+
+
+ 
  </div>
   )
 }
 export default Home;
-
-
-
-
 
    {/* ? dateInfo.map((result, key) => {
      return (
