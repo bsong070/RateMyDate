@@ -2,8 +2,6 @@ import './index.css';
 import React, { useState } from "react";
 import {states, cities, ethnicity, gender, age} from './DropDownItem';
 
-// add ethincity
-
 const NewEntry = () => {
 
   const [onType, setOnType] = useState({
@@ -125,7 +123,7 @@ const NewEntry = () => {
 <br></br>
   <div class="row justify-content-start">
     <div class="col-4">
-      <h2>Add a new review</h2><i class="fas fa-heart"></i>
+      <h2>Add a New Review</h2><i class="fas fa-heart"></i>
     <br></br>
     <br></br>
     </div>
@@ -274,9 +272,6 @@ const NewEntry = () => {
       </form>
     </div>
   </div>
-
-
-
 </div>
 
   );

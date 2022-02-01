@@ -10,6 +10,21 @@ const Home = () => {
     State: "",
   });
 
+  let [displayFinal,setDisplayFinal] = useState([])
+
+  const [review, setReview] = useState([
+    {
+      ID: "",
+      LastName: "",
+      FirstName: "",
+      City: "",
+      State: "",
+      OverallRating: "",
+      Age: 0,
+      Gender: "",
+      Count: 0
+    }
+  ])
   
   const [viewReview, setViewReview] = useState(false);
   
@@ -28,21 +43,6 @@ const Home = () => {
     }
   ];
 
-  let [displayFinal,setDisplayFinal] = useState([])
-
-  const [review, setReview] = useState([
-    {
-      ID: "",
-      LastName: "",
-      FirstName: "",
-      City: "",
-      State: "",
-      OverallRating: "",
-      Age: 0,
-      Gender: "",
-      Count: 0
-    }
-  ])
 
   const setInput = (e) => {
     const { name, value } = e.target;
@@ -53,7 +53,7 @@ const Home = () => {
     }));
   };
 
-  const searchDateInfo = async (url) => {
+  const searchDateInfo = async () => {
     await fetch("/api", {
       method: "POST",
       headers: {
@@ -86,7 +86,6 @@ const Home = () => {
         resultArray = resultArray.concat(indexObject);
 
         dateInfo = resultArray
-
         })
     })
     loadDisplay()
@@ -206,7 +205,6 @@ const Home = () => {
         indexObject.Listening = item.Listening
         indexObject.Respect = item.Respect
         indexObject.Comments = item.Comments
-        indexObject.Age = item.Age
         indexObject.Picture = item.Picture
 
         resultArray = resultArray.concat(indexObject);
@@ -217,7 +215,7 @@ const Home = () => {
   }
 
 
-  let DisplaySearch = ({name, id}) => {
+  let DisplaySearch = ({name}) => {
     return (
 
 <div class="container">
@@ -244,12 +242,12 @@ const Home = () => {
     <button type="button" class="btn btn-dark"  id = {name.ID} onClick = {() => viewReviews(name.LastName, name.FirstName, name.City, name.State)}>View All</button>
     </div>
     </div>
+    <br></br>
 </div>
-
     )
   }
 
-  let DisplayReview = ({name, id}) => {
+  let DisplayReview = ({name}) => {
     return (
       <div>
       <div class="container border rounded bg-gradient">
@@ -417,28 +415,7 @@ const Home = () => {
    )
  })
  }
-
-
- 
  </div>
   )
 }
 export default Home;
-
-   {/* ? dateInfo.map((result, key) => {
-     return (
-       <div key = {key}>
-         <DisplaySearch name = {result} id = {key} />
-       </div>
-     )
-   }) 
-
-
-//  {picStatus && dateInfo[0].Picture != null
-//  ? <img src = {require(`${dateInfo.Picture}`)} className = "photo"/>
-//  : <img src = {require('./upload/default.jpg')} className = "photo" />
-
-// }
-
-// </div>
-*/}
