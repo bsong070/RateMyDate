@@ -8,13 +8,13 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 const App = () => {
   return (
     <BrowserRouter>
-        <Navbar />
-        <div>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/newreview" element={<NewEntry />} />
-          </Routes>
-        </div>
+      <Navbar />
+      <div>
+        <Routes>
+          <Route path="/RateMyDate/" element={<Home />} />
+          <Route path="/RateMyDate/newreview" element={<NewEntry />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 };

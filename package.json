@@ -1,5 +1,6 @@
 {
   "name": "ratemydate",
+  "homepage": "https://bsong070.github.io/RateMyDate",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:5000",
@@ -12,6 +13,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "express-fileupload": "^1.2.1",
+    "gh-pages": "^4.0.0",
     "msnodesqlv8": "^2.4.4",
     "mssql": "^7.3.0",
     "nodemon": "^2.0.15",
@@ -29,7 +31,9 @@
     "server": "nodemon server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
